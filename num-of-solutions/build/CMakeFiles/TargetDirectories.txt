@@ -1,3 +1,0 @@
-C:/Users/1/Desktop/algorithm-tasks/num-of-solutions/build/CMakeFiles/numofsolutions.dir
-C:/Users/1/Desktop/algorithm-tasks/num-of-solutions/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/1/Desktop/algorithm-tasks/num-of-solutions/build/CMakeFiles/ZERO_CHECK.dir
