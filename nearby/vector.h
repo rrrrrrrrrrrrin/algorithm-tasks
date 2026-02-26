@@ -3,43 +3,6 @@
 
 const int size_array = 100;
 
-struct Command {
-  char array[size_array];
-
-  // Constructor
-  Command() {
-    for (int i = 0; i < size_array; ++i) {
-      array[i] = 0;
-    }
-  }
-
-  const char& operator[](uint64_t x) const {
-    if (x > 99) {
-      throw "vector.h Command: index out of range";
-    }
-    return array[x];
-  }
-};
-
-template <typename T>
-struct Pair {
-  T array[2] = {0};
-
-  T& operator[](uint64_t x) {
-    if (x > 1) {
-      throw "vector.h Pair: index out of range";
-    }
-    return array[x];
-  }
-
-  const T& operator[](uint64_t x) const {
-    if (x > 1) {
-      throw "vector.h Pair: index out of range";
-    }
-    return array[x];
-  }
-};
-
 template <typename T>
 class Vector {
  private:
@@ -88,9 +51,7 @@ class Vector {
 
   uint64_t get_size() const { return size; }
 
-  int get_size_array() const { return size_array; }
-
-  void push_back(const char* cmd) {
+  void push_back(const T& value) {
     if (capacity == size) {
       capacity = 2 * capacity;
       T* newData = new T[capacity];
@@ -103,16 +64,15 @@ class Vector {
       Data = newData;
     }
 
-    for (int i = 0; i < size_array; ++i) {
-      Data[size].array[i] = cmd[i];
-    }
+    Data[size] = value;
     size++;
   }
 
-  void fill(T elem) {
+  void fill(const T& elem) {
     for (uint64_t i = 0; i < capacity; i++) {
       Data[i] = elem;
     }
+    size = capacity;
   }
 
   T& operator[](uint64_t x) {
