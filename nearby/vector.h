@@ -56,7 +56,7 @@ class Vector {
       capacity = 2 * capacity;
       T* newData = new T[capacity];
 
-      for (int i = 0; i < size; ++i) {
+      for (uint64_t i = 0; i < size; ++i) {
         newData[i] = Data[i];
       }
 
