@@ -11,7 +11,6 @@ J S
 4 S
 3 S
 2 S
-A H
 K H
 Q H
 J H
@@ -24,7 +23,7 @@ J H
 4 H
 3 H
 2 H
-A D
+A H
 K D
 Q D
 J D
@@ -37,6 +36,7 @@ J D
 4 D
 3 D
 2 D
+A D
 A C
 K C
 Q C
