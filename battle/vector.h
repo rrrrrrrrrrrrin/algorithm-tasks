@@ -5,21 +5,21 @@ const int size_array = 100;
 
 template <typename T>
 struct Pair {
-    T array[2] = { 0 };
+  T array[2] = {0};
 
-    T& operator[](uint64_t x) {
-        if (x > 1) {
-            throw "vector.h Pair: index out of range";
-        }
-        return array[x];
+  T& operator[](uint64_t x) {
+    if (x > 1) {
+      throw "vector.h Pair: index out of range";
     }
+    return array[x];
+  }
 
-    const T& operator[](uint64_t x) const {
-        if (x > 1) {
-            throw "vector.h Pair: index out of range";
-        }
-        return array[x];
+  const T& operator[](uint64_t x) const {
+    if (x > 1) {
+      throw "vector.h Pair: index out of range";
     }
+    return array[x];
+  }
 };
 
 template <typename T>
@@ -70,9 +70,7 @@ class Vector {
 
   uint64_t get_size() const { return size; }
 
-  bool empty() {
-      return size == 0;
-  }
+  bool empty() { return size == 0; }
 
   void push_back(const T& value) {
     if (capacity == size) {
@@ -92,12 +90,12 @@ class Vector {
   }
 
   void reverse() {
-      T* newData = new T[capacity];
-      for (int64_t i = static_cast<int64_t>(size) - 1; i >= 0; i--) {
-          newData[size-i-1] = Data[i];
-      }
-      delete[] Data;
-      Data = newData;
+    T* newData = new T[capacity];
+    for (int64_t i = static_cast<int64_t>(size) - 1; i >= 0; i--) {
+      newData[size - i - 1] = Data[i];
+    }
+    delete[] Data;
+    Data = newData;
   }
 
   void fill(const T& elem) {
@@ -108,17 +106,17 @@ class Vector {
   }
 
   T& top() {
-      if (size == 0) {
-          throw "vector.h Vector, top(): vector is empty";
-      }
-      return Data[size - 1];
+    if (size == 0) {
+      throw "vector.h Vector, top(): vector is empty";
+    }
+    return Data[size - 1];
   }
 
   void pop() {
-      if (size == 0) {
-          throw "vector.h Vector, pop(): vector is empty";
-      }
-      --size;
+    if (size == 0) {
+      throw "vector.h Vector, pop(): vector is empty";
+    }
+    --size;
   }
 
   T& operator[](uint64_t x) {
