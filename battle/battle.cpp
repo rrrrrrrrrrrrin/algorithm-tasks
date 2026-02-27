@@ -1,0 +1,140 @@
+#include <iostream>
+#include <fstream>
+#include "vector.h"
+
+int main(int argc, char* argv[])
+{
+    if (argc != 2) {
+        std::cout << "Usage: input-file output-file\n";
+        return 1;
+    }
+
+    std::ifstream input(argv[1]);
+    if (!input) {
+        std::cout << "Couldn't open input file\n";
+        return 2;
+    }
+
+    Vector<int> deck(52);
+
+    // Priority: A K Q J 10 9 8 7 6 5 4 3 2
+    char c1;
+    char c2;
+    for (int i = 0; i < 52; i++)
+    {
+        int int1 = 0;
+        input >> c1;
+        input >> c2;
+        if (c2 == '0') { 
+            int1 = 10;
+            input.ignore();
+        }
+        input.ignore();
+
+        if (int1 == 0)
+        {
+            switch (c1) {
+            case 'A':
+                int1 = 14;
+                break;
+            case 'K':
+                int1 = 13;
+                break;
+            case 'Q':
+                int1 = 12;
+                break;
+            case 'J':
+                int1 = 11;
+                break;
+            default:
+                int1 = static_cast<int>(c1 - '0');
+            }
+        }
+
+        deck.push_back(int1);
+    }
+    
+    // Max amount of cards any player can hold is 52
+    Vector<int> p1_RS(52);  // player1 right stack
+    Vector<int> p2_RS(52);  // player2 right stack
+    for (uint64_t i = 0; i < 26; i++)
+    {
+        p1_RS.push_back(deck[i]);
+    }
+    for (uint64_t i = 26; i < 52; i++)
+    {
+        p2_RS.push_back(deck[i]);
+    }
+
+    p1_RS.reverse();  // player1 left stack
+    p2_RS.reverse();  // player2 left stack
+
+    Vector<int> p1_LS(52);
+    Vector<int> p2_LS(52);
+
+    // FIFO via Two Stacks
+    uint64_t i = 0;
+    double limit = 1e6;
+    const char* res = "unknown";
+    while (limit >= 0)
+    {
+        --limit;
+
+        int f = 0;
+        int s = 0;
+        if (!p1_RS.empty())
+        {
+            f = p1_RS.top();
+            p1_RS.pop();
+        }
+        else 
+        {
+            if (!p1_LS.empty()) {
+                p1_RS.push_back(p1_LS.top());
+                p1_LS.pop();
+            }
+            else
+            {
+                res = "second";
+            }
+        }
+
+        if (!p2_RS.empty())
+        {
+            s = p2_RS.top();
+            p2_RS.pop();
+        }
+        else
+        {
+            if (!p2_LS.empty()) {
+                p2_RS.push_back(p2_LS.top());
+                p2_LS.pop();
+            }
+            else {
+                if (res == "second") { res = "draw"; }
+                else { res = "first"; }
+                break;
+            }
+        }
+
+        if (f > s || (f == 2 && s == 14)) { 
+            p1_LS.push_back(f);
+            p1_LS.push_back(s);
+        }
+        else if (f < s || (f == 14 && s == 2)) {
+            p2_LS.push_back(f);
+            p2_LS.push_back(s);
+        }
+        else {
+            // draw
+            Vector<int> store;
+            store.push_back(f);
+            store.push_back(s);
+
+            
+        }
+    }
+
+    std::cout << res;
+	return 0;
+}
