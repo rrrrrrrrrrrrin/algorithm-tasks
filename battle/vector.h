@@ -118,13 +118,6 @@ class Vector {
       if (size == 0) {
           throw "vector.h Vector, pop(): vector is empty";
       }
-      T* newData = new T[capacity];
-      for (uint64_t i = 0; i < size - 1; i++) {
-          newData[i] = Data[i];
-      }
-      delete[] Data;
-      Data = newData;
-
       --size;
   }
 

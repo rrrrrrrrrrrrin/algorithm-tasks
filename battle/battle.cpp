@@ -3,8 +3,12 @@
 #include <cstring>
 #include "vector.h"
 
+#include <chrono>
+
 int main(int argc, char* argv[])
 {
+    auto start = std::chrono::high_resolution_clock::now();
+
     if (argc != 2) {
         std::cout << "Usage: input-file output-file\n";
         return 1;
@@ -236,5 +240,10 @@ int main(int argc, char* argv[])
     }
 
     std::cout << res;
+
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    std::cout << "\nExecution time: " << duration.count() << " milliseconds" << std::endl;
+
 	return 0;
 }
