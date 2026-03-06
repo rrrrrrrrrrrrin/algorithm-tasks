@@ -51,13 +51,52 @@ int main(int argc, char* argv[]) {
 
   input.close();
 
-  for (int64_t i = 0; i <= N - K; i++) {
-    int64_t current_sum = 0;
-    int64_t fGCD = 0;
+  Vector<int64_t> LS(K);
+  Vector<int64_t> RS(K);
 
-    for (int64_t j = 0; j < K; j++) {
-      fGCD = fGCD == 0 ? vec[i + j] : GCD(vec[i + j], fGCD);
-      current_sum += vec[i + j];
+  int64_t current_sum = 0;
+  int64_t fGCD = 0;
+  for (int64_t j = 0; j < K; j++) {
+    current_sum += vec[j];
+
+    LS.push_back(vec[j]);
+  }
+
+  for (int64_t i = 0; i < K; i++) {
+    fGCD = fGCD == 0 ? LS[i] : GCD(LS[i], fGCD);
+  }
+
+  for (int64_t i = 0; i < K; i++) {
+    RS.push_back(LS.top());
+    LS.pop();
+  }
+  RS.pop();
+
+  for (int64_t i = 0; i < K - 1; i++) {
+    LS.push_back(RS.top());
+    RS.pop();
+  }
+
+  output << current_sum << ' ' << fGCD << "\n";
+
+  for (int64_t j = K; j < N; j++) {
+    current_sum = current_sum + vec[j] - vec[j - K];
+
+    fGCD = 0;
+    LS.push_back(vec[j]);
+    for (int64_t i = 0; i < K; i++) {
+      fGCD = fGCD == 0 ? LS[i] : GCD(LS[i], fGCD);
+    }
+
+    for (int64_t i = 0; i < K; i++) {
+      RS.push_back(LS.top());
+      LS.pop();
+    }
+    RS.pop();
+
+    for (int64_t i = 0; i < K - 1; i++) {
+      LS.push_back(RS.top());
+      RS.pop();
     }
 
     output << current_sum << ' ' << fGCD << "\n";
