@@ -1,22 +1,74 @@
 ﻿#ifndef TREAP_H
+#define TREAP_H
 #include <random>
 #include <cstdint>
+#include <fstream>
+#include "vector.h"
 
+// Treap is tree + heap
+// 
+// Stores pairs (x,y): 
+//		key x (in implicit treap it is index of subtree. Index is calculated via size of subtree) - for BST
+//		priority y - for binary heap
+// 
+// Therefore: for every node all children's priorities are less,
+//            all children on the left have key less than the node's
+// 
+// Build: O(nlogn), search/insert/delete: O(log n) + bulk operations: split and join 
+//
+// Operations of Edit and ImplicitTreap:
+//		move (up and down): change current key (index)
+//      cut lines: split (isolate a tree M, clipboard = M) + join
+//		paste lines: split (insert at key) + join
+
+// Class if describing each Node in ImplicitTreap
 class ImplicitTreap {
  private:
-  int64_t key;
-  int64_t prior;
-  ImplicitTreap* left;
-  ImplicitTreap* right;
+  char* line_;
+  uint64_t size = 1;  // subtree size; used to calculate index which is key
+  uint64_t prior = 0;  // random priority to keep tree balanced (operation O(logn))
+  ImplicitTreap* left = nullptr;
+  ImplicitTreap* right = nullptr;
 
  public:
-  ImplicitTreap() : key(0), prior(std::rand()), left{nullptr}, right{nullptr} {}
+  explicit ImplicitTreap(char* line) : line_(line), size(1), prior(std::rand()), left{nullptr}, right{nullptr} {}
 
-  uint64_t cnt() const;
-  void updateCnt();
+  // No copy constructors so there is no double free of memory
+  // (when 2 treaps that share objects with the same pointers 
+  //  (they share the same memory as they copy addresses, not data)
+  //  exist and one of them is deleted => both are deleted)
+  ImplicitTreap(const ImplicitTreap&) = delete;
+  ImplicitTreap& operator=(const ImplicitTreap&) = delete;
 
-  void join(ImplicitTreap* left, ImplicitTreap* right);
-  void split(ImplicitTreap*& left, ImplicitTreap*& right, uint64_t key, uint64_t add = 0);
+  static uint64_t get_size(ImplicitTreap* t) { return t != nullptr ? t->size : 0; }
+  static void updateSize(ImplicitTreap* t) { 
+      if (t != nullptr) {
+          t->size = 1 + get_size(t->left) + get_size(t->right);
+      }
+  }
+
+  static ImplicitTreap* join(ImplicitTreap* left, ImplicitTreap* right);
+  static Pair<ImplicitTreap*> split(ImplicitTreap* t, uint64_t key);
+
+  static void free_treap(ImplicitTreap* t) {
+      if (t == nullptr) { return; }
+
+      // free children first
+      free_treap(t->left);
+      free_treap(t->right);
+
+      delete[] t->line_;
+      delete t;  // t was allocated with new ImplicitTreap; free pointer
+  }
+
+  static void print(ImplicitTreap* t, std::ofstream& out)
+  {
+      if (t == nullptr) { return; }
+
+      print(t->left, out);
+      out << t->line_ << '\n';
+      print(t->right, out);
+  }
 };
 
 #endif

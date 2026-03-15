@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <fstream>
 #include <cstring>
 #include "edit.h"
 
@@ -56,7 +55,7 @@ int main(int argc, char* argv[]) {
   i = 0;
 
   Vector<char*> cmdBuffer;
-  while ((ch = input.get()) != EOF) {
+  while ((ch = commands.get()) != EOF) {
     if (ch == '\n') {
       str[i] = '\0';
 
@@ -72,11 +71,21 @@ int main(int argc, char* argv[]) {
   commands.close();
 
   str[i] = '\0';
-  char* copy = new char[i + 1]{0};
   std::memcpy(copy, str, i + 1);
-  inBuffer.push_back(copy);
+  cmdBuffer.push_back(copy);
   
   delete[] str;
+  delete[] copy;
 
+  // ==================================== Edit ====================================
+  Edit edit(inBuffer);
+  for (uint64_t i = 0; i < cmdBuffer.get_size(); i++) {
+      auto command = cmdBuffer[i];
 
+      if (std::strcmp(command, "Up") == 0) { edit.Up(); }
+      else if (std::strcmp(command, "Down") == 0) { edit.Down(); }
+      else if (std::strcmp(command, "Ctrl+X") == 0) { edit.Cut(); }
+      else if (std::strcmp(command, "Ctrl+V") == 0) { edit.Paste(); }
+      else if (std::strcmp(command, "Shift") == 0) { edit.startShift(); }
+  }
 }
