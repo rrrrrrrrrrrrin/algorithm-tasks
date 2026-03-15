@@ -35,10 +35,29 @@ class ImplicitTreap {
 
   // No copy constructors so there is no double free of memory
   // (when 2 treaps that share objects with the same pointers 
-  //  (they share the same memory as they copy addresses, not data)
-  //  exist and one of them is deleted => both are deleted)
+  // (they share the same memory as they copy addresses, not data)
+  // exist and one of them is deleted => both are deleted)
   ImplicitTreap(const ImplicitTreap&) = delete;
   ImplicitTreap& operator=(const ImplicitTreap&) = delete;
+
+  static ImplicitTreap* deep_copy(ImplicitTreap* t) {
+      if (t == nullptr) { return nullptr; }
+
+      // Copy the string
+      size_t L = std::strlen(t->line_);
+      char* str = new char[L + 1] {0};
+      std::memcpy(str, t->line_, L+1);
+      ImplicitTreap* node = new ImplicitTreap(str);
+
+      node->prior = t->prior; 
+
+      node->left  = deep_copy(t->left);
+      node->right = deep_copy(t->right);
+
+      updateSize(node);
+
+      return node;
+  }
 
   static uint64_t get_size(ImplicitTreap* t) { return t != nullptr ? t->size : 0; }
   static void updateSize(ImplicitTreap* t) { 

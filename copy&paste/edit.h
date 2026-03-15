@@ -67,7 +67,7 @@ class Edit {
       // q1[0] — subtree b4 selection, q1[1] — selection + subtree after selection
       // q2[0] — selection, q2[1] — subtree after selection
       auto q1 = ImplicitTreap::split(root, l);
-      auto q2 = ImplicitTreap::split(q1[1], r - l + 1);  // r - l + 1 - the amount of elems in selection
+      auto q2 = ImplicitTreap::split(q1[1], r - l);  // r - l - the amount of elems in selection
 
       if (clipboard != nullptr)
       {
@@ -88,10 +88,13 @@ class Edit {
       }
 
       auto q = ImplicitTreap::split(root, ptr);
+
+      // Deep copy to avoid double free behavior 
+      ImplicitTreap* clipboard_copy = ImplicitTreap::deep_copy(clipboard);
       
-      root = ImplicitTreap::join(q[0], ImplicitTreap::join(clipboard, q[1]));
+      root = ImplicitTreap::join(q[0], ImplicitTreap::join(clipboard_copy, q[1]));
   
-      ptr += ImplicitTreap::get_size(clipboard);  // move cursor
+      ptr += ImplicitTreap::get_size(clipboard_copy);  // move cursor
   }
 
   static void editPrint(Edit& edit, std::ofstream& out)

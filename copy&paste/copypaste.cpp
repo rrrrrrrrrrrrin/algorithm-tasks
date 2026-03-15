@@ -47,12 +47,7 @@ int main(int argc, char* argv[]) {
   }
   input.close();
 
-  // After EOF
-  str[i] = '\0';
-  char* copy = new char[i + 1]{0};
-  std::memcpy(copy, str, i + 1);
-  inBuffer.push_back(copy);
-  i = 0;
+  // Don't save last line: '\n'
 
   Vector<char*> cmdBuffer;
   while ((ch = commands.get()) != EOF) {
@@ -71,11 +66,12 @@ int main(int argc, char* argv[]) {
   commands.close();
 
   str[i] = '\0';
+  char* copy = new char[i + 1]{0};
   std::memcpy(copy, str, i + 1);
   cmdBuffer.push_back(copy);
   
   delete[] str;
-  delete[] copy;
+  // ~Edit will free char* copy
 
   // ==================================== Edit ====================================
   Edit edit(inBuffer);
@@ -88,4 +84,8 @@ int main(int argc, char* argv[]) {
       else if (std::strcmp(command, "Ctrl+V") == 0) { edit.Paste(); }
       else if (std::strcmp(command, "Shift") == 0) { edit.startShift(); }
   }
+
+  Edit::editPrint(edit, output);
+
+  return 0;
 }

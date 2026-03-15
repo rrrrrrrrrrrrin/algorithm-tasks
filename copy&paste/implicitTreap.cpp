@@ -7,13 +7,14 @@ ImplicitTreap* ImplicitTreap::join(ImplicitTreap* l, ImplicitTreap* r) {
 	if (r == nullptr) { return l; }
 
 	if (l->prior > r->prior) {
-		l->right = join(l->right, r);
-		updateSize(r);
+		// l->left remains intact, l->right is joined with r
+		l->right = join(l->right, r); 
+		updateSize(l);
 		return l;
 	}
 
-	// else
-	r->left = join(r->left, l);
+	// else r->right remains intact, r->left is joined with l
+	r->left = join(l, r->left); 
 	updateSize(r);
 	return r;
 }
