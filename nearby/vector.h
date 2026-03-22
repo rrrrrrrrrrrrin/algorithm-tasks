@@ -1,16 +1,15 @@
 #ifndef VECTOR_H
-#include <cstdint>  // For uint64_t
+#include <cstdint> // For uint64_t
 
 const int size_array = 100;
 
-template <typename T>
-class Vector {
- private:
-  T* Data;
+template <typename T> class Vector {
+private:
+  T *Data;
   uint64_t capacity = 0;
   uint64_t size = 0;
 
- public:
+public:
   // Constructors
   Vector() {
     size = 0;
@@ -25,7 +24,7 @@ class Vector {
   }
 
   // Copy constructor
-  Vector(const Vector& other) {
+  Vector(const Vector &other) {
     size = other.size;
     capacity = other.capacity;
     Data = new T[capacity];
@@ -35,7 +34,7 @@ class Vector {
   }
 
   // Assignment operator
-  Vector& operator=(const Vector& other) {
+  Vector &operator=(const Vector &other) {
     if (this == &other) {
       return *this;
     }
@@ -51,10 +50,10 @@ class Vector {
 
   uint64_t get_size() const { return size; }
 
-  void push_back(const T& value) {
+  void push_back(const T &value) {
     if (capacity == size) {
       capacity = 2 * capacity;
-      T* newData = new T[capacity];
+      T *newData = new T[capacity];
 
       for (uint64_t i = 0; i < size; ++i) {
         newData[i] = Data[i];
@@ -68,21 +67,21 @@ class Vector {
     size++;
   }
 
-  void fill(const T& elem) {
+  void fill(const T &elem) {
     for (uint64_t i = 0; i < capacity; i++) {
       Data[i] = elem;
     }
     size = capacity;
   }
 
-  T& operator[](uint64_t x) {
+  T &operator[](uint64_t x) {
     if (x > size - 1) {
       throw "vector.h Vector: index out of range";
     }
     return Data[x];
   }
 
-  const T& operator[](uint64_t x) const {
+  const T &operator[](uint64_t x) const {
     if (x > size - 1) {
       throw "vector.h Vector: index out of range";
     }

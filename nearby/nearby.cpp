@@ -1,17 +1,17 @@
-#include <fstream>
+﻿#include <fstream>
 #include <iostream>
 
 #include "vector.h"
 
-int64_t binary_search(Vector<int64_t>& vec, int64_t& elem) {
-  int64_t idx = 0;
-  uint64_t n = vec.get_size();
+int32_t binary_search(Vector<int32_t>& vec, int32_t& elem) {
+  int32_t idx = 0;
+  uint32_t n = vec.get_size();
 
-  int64_t L = 0;
-  int64_t R = static_cast<int64_t>(n) - 1;
+  int32_t L = 0;
+  int32_t R = static_cast<int32_t>(n) - 1;
   while (L <= R) {
     idx = L + ((R - L) / 2);  // middle of the vec
-    int64_t cur = vec[idx];
+    int32_t cur = vec[idx];
 
     if (cur < elem) {
       L = idx + 1;
@@ -28,15 +28,24 @@ int64_t binary_search(Vector<int64_t>& vec, int64_t& elem) {
   if (R < 0) {
     return vec[0];
   }
-  if (L >= static_cast<int64_t>(n)) {
+  if (L >= static_cast<int32_t>(n)) {
     return vec[n - 1];
   }
 
-  int64_t L_val = vec[R];
-  int64_t R_val = vec[L];
+  int32_t L_val = vec[R];
+  int32_t R_val = vec[L];
 
-  int64_t dL = L_val > elem ? L_val - elem : elem - L_val;
-  int64_t dR = R_val > elem ? R_val - elem : elem - R_val;
+  // distances can exceed int32_t, so use int64_t
+  // + expression itself may overflow b4 being assigned to a wider type
+  int64_t dL = static_cast<int64_t>(L_val) - elem;
+  if (dL < 0) {
+    dL = -dL;
+  }
+
+  int64_t dR = static_cast<int64_t>(R_val) - elem;
+  if (dR < 0) {
+    dR = -dR;
+  }
 
   // Compare distances (between val and a searched elem),
   // choose the closest to elem val
@@ -64,22 +73,22 @@ int main(int argc, char* argv[]) {
     return 3;
   }
 
-  uint64_t n;
-  uint64_t k;
+  uint32_t n;
+  uint32_t k;
   input >> n;
   input >> k;
   input.ignore();
 
-  Vector<int64_t> vec(n);
+  Vector<int32_t> vec(n);
 
-  int64_t num;
-  for (uint64_t i = 0; i < n; i++) {
+  int32_t num;
+  for (uint32_t i = 0; i < n; i++) {
     input >> num;
     vec.push_back(num);
   }
   input.ignore();
 
-  for (uint64_t i = 0; i < k; i++) {
+  for (uint32_t i = 0; i < k; i++) {
     input >> num;
     output << binary_search(vec, num) << '\n';
   }
