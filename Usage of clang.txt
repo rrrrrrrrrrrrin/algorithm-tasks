@@ -1,0 +1,3 @@
+for %f in (*.cpp *.h) do clang-format -i "%f"
+
+for /R %i in (*.cpp, *.c, *.cc) do clang-tidy "%i" -- --std=c++17 -I"path\to\includes"
