@@ -1,9 +1,0 @@
-Down
-Down
-Down
-Ctrl+X
-Up
-Ctrl+X
-Up
-Up
-Ctrl+V

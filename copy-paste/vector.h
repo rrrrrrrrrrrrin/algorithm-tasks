@@ -1,20 +1,19 @@
 #ifndef VECTOR_H
-#include <cstdint>  // For uint64_t
+#include <cstdint> // For uint64_t
 
 const int size_array = 100;
 
-template <typename T>
-struct Pair {
+template <typename T> struct Pair {
   T array[2] = {0};
 
-  T& operator[](uint64_t x) {
+  T &operator[](uint64_t x) {
     if (x > 1) {
       throw "vector.h Pair: index out of range";
     }
     return array[x];
   }
 
-  const T& operator[](uint64_t x) const {
+  const T &operator[](uint64_t x) const {
     if (x > 1) {
       throw "vector.h Pair: index out of range";
     }
@@ -22,14 +21,13 @@ struct Pair {
   }
 };
 
-template <typename T>
-class Vector {
- private:
-  T* Data;
+template <typename T> class Vector {
+private:
+  T *Data;
   uint64_t capacity = 0;
   uint64_t size = 0;
 
- public:
+public:
   // Constructors
   Vector() {
     size = 0;
@@ -44,7 +42,7 @@ class Vector {
   }
 
   // Copy constructor
-  Vector(const Vector& other) {
+  Vector(const Vector &other) {
     size = other.size;
     capacity = other.capacity;
     Data = new T[capacity];
@@ -54,7 +52,7 @@ class Vector {
   }
 
   // Assignment operator
-  Vector& operator=(const Vector& other) {
+  Vector &operator=(const Vector &other) {
     if (this == &other) {
       return *this;
     }
@@ -72,10 +70,10 @@ class Vector {
 
   bool empty() { return size == 0; }
 
-  void push_back(const T& value) {
+  void push_back(const T &value) {
     if (capacity == size) {
       capacity = 2 * capacity;
-      T* newData = new T[capacity];
+      T *newData = new T[capacity];
 
       for (uint64_t i = 0; i < size; ++i) {
         newData[i] = Data[i];
@@ -90,7 +88,7 @@ class Vector {
   }
 
   void reverse() {
-    T* newData = new T[capacity];
+    T *newData = new T[capacity];
     for (int64_t i = static_cast<int64_t>(size) - 1; i >= 0; i--) {
       newData[size - i - 1] = Data[i];
     }
@@ -98,14 +96,14 @@ class Vector {
     Data = newData;
   }
 
-  void fill(const T& elem) {
+  void fill(const T &elem) {
     for (uint64_t i = 0; i < capacity; i++) {
       Data[i] = elem;
     }
     size = capacity;
   }
 
-  T& top() {
+  T &top() {
     if (size == 0) {
       throw "vector.h Vector, top(): vector is empty";
     }
@@ -119,14 +117,14 @@ class Vector {
     --size;
   }
 
-  T& operator[](uint64_t x) {
+  T &operator[](uint64_t x) {
     if (x > size - 1) {
       throw "vector.h Vector: index out of range";
     }
     return Data[x];
   }
 
-  const T& operator[](uint64_t x) const {
+  const T &operator[](uint64_t x) const {
     if (x > size - 1) {
       throw "vector.h Vector: index out of range";
     }
