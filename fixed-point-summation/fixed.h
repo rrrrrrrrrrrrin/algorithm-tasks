@@ -1,21 +1,18 @@
 ﻿#ifndef MYFIXED_
 #define MYFIXED_
 #include <cctype>
+#include <cstdio>
 #include <cstring>
 
-inline void int_to_str(char*& result, int& i, unsigned int integer) {
-  char* temp = new char[12];
+inline void int_to_str(char*& result, int& i, unsigned long long integer) {
+  char temp[24];
   int j = 0;
-
-  if (integer < 0) {
-    result[i++] = '0';
-  }
 
   if (integer == 0) {
     temp[j++] = '0';
   } else {
     while (integer > 0) {
-      temp[j++] = (integer % 10) + '0';
+      temp[j++] = static_cast<char>((integer % 10) + '0');
       integer /= 10;
     }
   }
@@ -26,11 +23,9 @@ inline void int_to_str(char*& result, int& i, unsigned int integer) {
   for (int k = j - 1; k >= 0; --k) {
     result[i++] = temp[k];
   }
-
-  delete[] temp;
 }
 
-inline void str_to_int(const char str[], int j, unsigned int& ans) {
+inline void str_to_int(const char str[], int j, unsigned long long& ans) {
   for (int i = 0; i < j; i++) {
     ans = ans * 10 + (str[i] - '0');
   }
@@ -109,7 +104,7 @@ class Fixed {
     }
 
     // Integer part
-    integer = static_cast<unsigned int>(num);
+    integer = static_cast<unsigned long long>(num);
     num -= integer;
 
     // Mantissa part
@@ -132,10 +127,12 @@ class Fixed {
     if (str[index] == '-') {
       sign = -1;
       ++index;
+    } else if (str[index] == '+') {
+      ++index;
     }
 
     while (str[index] != '\0' && str[index] != '.') {
-      if (!std::isdigit(str[index])) {
+      if (std::isdigit(str[index]) == 0) {
         break;
       }
       integer = integer * 10 + (str[index] - '0');
@@ -152,7 +149,7 @@ class Fixed {
 
     int i = 0;
     while (str[index] != '\0') {
-      if (!std::isdigit(str[index])) {
+      if (std::isdigit(str[index]) == 0) {
         if (str[index] == 'e') {
           bool shift_left = false;
           char temp[20];
@@ -172,19 +169,17 @@ class Fixed {
             temp[j++] = str[index++];
           }
 
-          unsigned int shift_digits = 0;
+          unsigned long long shift_digits = 0;
           str_to_int(temp, j, shift_digits);
 
           if (shift_left) {
             this->operator<<=(shift_digits);
           } else {
             this->operator>>=(shift_digits);
-          }  // shift_left
-
+          }
           break;
-        } else {
-          throw "Wrong format";
         }
+        throw "Wrong format";
       }
 
       if (i < MAX_DIGITS) {
@@ -196,8 +191,6 @@ class Fixed {
 
     normalize();
   }
-
-  friend class Fixed;
 
   template <int XXX>
   Fixed(const Fixed<XXX>& other) : sign(other.sign), integer(other.integer) {
@@ -226,12 +219,13 @@ class Fixed {
     }
 
     if (isZero) {
-      const char res_zero[25] = "0.000000000000000e+00\0";
+      const char res_zero[] = "0.000000000000000e+00";
       int k = 0;
       while (res_zero[k] != '\0') {
         result[k] = res_zero[k];
         k++;
       }
+      result[k] = '\0';
       return result;
     }
 
@@ -242,88 +236,90 @@ class Fixed {
     if (integer > 0) {
       // Absolute value >= 1.0 (Positive Exponent)
       char intBuf[25];
-      int intLen = 0;
-      unsigned long long tempInt = integer;
+      int int_len = 0;
+      unsigned long long temp_int = integer;
 
-      while (tempInt > 0) {
-        intBuf[intLen++] = (tempInt % 10) + '0';
-        tempInt /= 10;
+      while (temp_int > 0) {
+        intBuf[int_len++] = static_cast<char>((temp_int % 10) + '0');
+        temp_int /= 10;
       }
 
-      int exp = intLen - 1;
+      int exp = int_len - 1;
 
       // Leading digit
-      result[i++] = intBuf[intLen - 1];
+      result[i++] = intBuf[int_len - 1];
       result[i++] = '.';
 
-      int printedFractional = 0;
+      int printed_mantissa = 0;
 
       // Remaining integer digits act as the start of mantissa
-      for (int j = intLen - 2; j >= 0 && printedFractional < MAX_DIGITS; --j) {
+      for (int j = int_len - 2; j >= 0 && printed_mantissa < MAX_DIGITS; --j) {
         result[i++] = intBuf[j];
-        printedFractional++;
+        printed_mantissa++;
       }
 
-      // Fractional digits from the array
-      for (int j = 0; j < MAX_DIGITS && printedFractional < MAX_DIGITS; ++j) {
+      // Move digits (fractional part) into mantissa
+      for (int j = 0; j < MAX_DIGITS && printed_mantissa < MAX_DIGITS; ++j) {
         result[i++] = digits[j] + '0';
-        printedFractional++;
+        printed_mantissa++;
       }
 
       // Pad with zeros to reach MAX_DIGITS precision
-      while (printedFractional < MAX_DIGITS) {
+      while (printed_mantissa < MAX_DIGITS) {
         result[i++] = '0';
-        printedFractional++;
+        printed_mantissa++;
       }
 
-      result[i++] = 'e';
-      result[i++] = '+';
-      result[i++] = (exp / 10) + '0';
-      result[i++] = (exp % 10) + '0';
+      char expbuf[32];
+      std::snprintf(expbuf, sizeof(expbuf), "e%+03d", exp);
+      for (int k = 0; expbuf[k] != '\0'; ++k) {
+        result[i++] = expbuf[k];
+      }
 
     } else {
       // Absolute Value < 1.0 (Negative Exponent)
-      int firstIdx = 0;
-      while (firstIdx < MAX_DIGITS && digits[firstIdx] == 0) {
-        firstIdx++;
+      int first_idx = 0;
+      while (first_idx < MAX_DIGITS && digits[first_idx] == 0) {
+        first_idx++;
       }
 
       // Handle zero
-      if (firstIdx == MAX_DIGITS) {
-        const char res_zero[25] = "0.000000000000000e+00\0";
+      if (first_idx == MAX_DIGITS) {
+        const char res_zero[] = "0.000000000000000e+00";
         int k = 0;
         while (res_zero[k] != '\0') {
           result[k] = res_zero[k];
           k++;
         }
+        result[k] = '\0';
         return result;
       }
 
-      int exp = -(firstIdx + 1);
+      int exp = -(first_idx + 1);
 
       // Leading non-zero digit
-      result[i++] = digits[firstIdx] + '0';
+      result[i++] = digits[first_idx] + '0';
       result[i++] = '.';
 
-      int printedFractional = 0;
+      int printed_mantissa = 0;
 
       // Remaining digits in the array
-      for (int j = firstIdx + 1; j < MAX_DIGITS; ++j) {
+      for (int j = first_idx + 1; j < MAX_DIGITS; ++j) {
         result[i++] = digits[j] + '0';
-        printedFractional++;
+        printed_mantissa++;
       }
 
       // Pad with zeros to reach exactly MAX_DIGITS precision
-      while (printedFractional < MAX_DIGITS) {
+      while (printed_mantissa < MAX_DIGITS) {
         result[i++] = '0';
-        printedFractional++;
+        printed_mantissa++;
       }
 
-      result[i++] = 'e';
-      result[i++] = '-';
-      int absExp = -exp;
-      result[i++] = (absExp / 10) + '0';
-      result[i++] = (absExp % 10) + '0';
+      char expbuf[32];
+      std::snprintf(expbuf, sizeof(expbuf), "e%+03d", exp);
+      for (int k = 0; expbuf[k] != '\0'; ++k) {
+        result[i++] = expbuf[k];
+      }
     }
 
     result[i] = '\0';

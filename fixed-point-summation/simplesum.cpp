@@ -1,11 +1,12 @@
 ﻿#include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 
 #include "fixed.h"
 // #include <chrono>
 
-const int DIGITS = 15;  // 15 decimal points for double
+const int DIGITS = 15;  // 15 decimal points for double + extra
 
 std::ostream& operator<<(std::ostream& out, const Fixed<DIGITS>& x) {
   char* s = x.to_scientific();
@@ -40,7 +41,11 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  std::cout << ans << "\n";
+  // std::cout << ans << '\n';
+
+  std::cout << std::scientific
+            << std::setprecision(std::numeric_limits<double>::max_digits10)
+            << ans.to_double() << "\n";
 
   /*auto stop = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop -
