@@ -1,0 +1,7 @@
+dos2unix scripts/check_clean.sh
+
+find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} +
+
+git add .
+git commit -m "Fix CRLF line endings"
+git push
