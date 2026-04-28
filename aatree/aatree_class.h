@@ -21,7 +21,7 @@ class aatree {
 
   static aatree* skew(aatree* t);
   static aatree* split(aatree* t);
-  static aatree* insert(int x, aatree* t, bool& inserted);
+  static aatree* insert(int x, aatree* t);
 
   static inline int get_level(aatree* t) {
     return t != nullptr ? t->level_ : 0;

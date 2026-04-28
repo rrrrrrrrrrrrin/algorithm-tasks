@@ -41,29 +41,26 @@ aatree* aatree::split(aatree* t) {
   return t;
 }
 
-aatree* aatree::insert(int x, aatree* t, bool& inserted) {
+aatree* aatree::insert(int x, aatree* t) {
   // value x to be inserted at root t
   if (t == nullptr) {
     // Create a new leaf node with value x
-    inserted = true;
     return new aatree(x, 1);
   }
   if (x < t->val_) {
-    t->l = insert(x, t->l, inserted);
+    t->l = insert(x, t->l);
   } else if (x > t->val_) {
-    t->r = insert(x, t->r, inserted);
+    t->r = insert(x, t->r);
   }
   // x == t->val
   else {
-    inserted = false;  // elem already exists in set
+    // elem already exists in set
     return t;
   }
 
   // Balance only if new node (elem) was added
-  if (inserted) {
-    t = skew(t);
-    t = split(t);
-  }
+  t = skew(t);
+  t = split(t);
 
   return t;
 }
@@ -97,13 +94,12 @@ aatree* aatree::decreaseLevel(aatree* t) {
 //   return t;
 // }
 
-// Seletion of internal node can be turned into deletion
-// of leaf node by swapping internal node with either
-// its closest predecessor or successor
+// Deletion of internal node can be turned into deletion
+// of leaf node by swapping internal node with its successor
 //
 // Because of AA tree property of all nodes of level greater than 1
-// having 2 children, successor or predecessor node will be in level 1,
-// making their removal trivial
+// having 2 children, successor node will be in level 1,
+// making its removal trivial
 //
 // If nothing was removed (deleted == false),
 // don't rebalance aatree
@@ -116,23 +112,34 @@ aatree* aatree::delete_x(int x, aatree* t, bool& deleted) {
   } else if (x < t->val_) {
     t->l = delete_x(x, t->l, deleted);
   } else {
-    // t is leaf
+    // Found node to delete
     deleted = true;
 
+    // t is leaf
     if (t->l == nullptr && t->r == nullptr) {
       delete t;
       return nullptr;
     }
     // Reduce to leaf case
-    if (get_level(t->l) < get_level(t->r)) {
-      aatree* s = successor(t);
-      t->val_ = s->val_;
-      t->r = delete_x(s->val_, t->r, deleted);
-    } else {
-      aatree* p = predecessor(t);
-      t->val_ = p->val_;
-      t->l = delete_x(p->val_, t->l, deleted);
+    // 1 child: replace t node by its child (value)
+    if (t->l == nullptr) {
+      aatree* R = t->r;
+      // Detach child to prevent its destruction before returning it
+      t->r = nullptr;
+      delete t;  // destructs its children
+      return R;
     }
+    if (t->r == nullptr) {
+      aatree* L = t->l;
+      t->l = nullptr;
+      delete t;
+      return L;
+    }
+
+    // 2 children: replace t node by its successor (value)
+    aatree* s = successor(t);
+    t->val_ = s->val_;
+    t->r = delete_x(s->val_, t->r, deleted);
   }
 
   if (!deleted) {
@@ -140,23 +147,20 @@ aatree* aatree::delete_x(int x, aatree* t, bool& deleted) {
   }
   // else: rebalance aatree
 
-  int old_level = t->level_;
   t = decreaseLevel(t);
 
-  if (t->level_ < old_level) {
-    // Skew and split entire level (not just node)
-    t = skew(t);
-    if (t->r != nullptr) {
-      t->r = skew(t->r);
-    }
-    if (t->r != nullptr && t->r->r != nullptr) {
-      t->r->r = skew(t->r->r);
-    }
+  // Skew and split entire level (not just node)
+  t = skew(t);
+  if (t->r != nullptr) {
+    t->r = skew(t->r);
+  }
+  if (t->r != nullptr && t->r->r != nullptr) {
+    t->r->r = skew(t->r->r);
+  }
 
-    t = split(t);
-    if (t->r != nullptr) {
-      t->r = split(t->r);
-    }
+  t = split(t);
+  if (t->r != nullptr) {
+    t->r = split(t->r);
   }
 
   return t;

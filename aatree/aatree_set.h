@@ -9,10 +9,7 @@ class aatree_set {
  public:
   aatree_set() = default;
 
-  void add(int x) {
-    bool inserted = false;
-    root = aatree::insert(x, root, inserted);
-  }
+  void add(int x) { root = aatree::insert(x, root); }
 
   void remove(int x) {
     bool deleted = false;
