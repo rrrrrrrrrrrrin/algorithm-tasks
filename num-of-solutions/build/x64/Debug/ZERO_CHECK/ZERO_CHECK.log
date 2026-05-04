@@ -1,0 +1,18 @@
+﻿  1>Checking Build System
+  CMake is re-running because C:/Users/1/Desktop/algorithm-tasks/num-of-solutions/build/CMakeFiles/generate.stamp is out-of-date.
+    the file 'C:/Users/1/Desktop/algorithm-tasks/num-of-solutions/CMakeLists.txt'
+    is newer than 'C:/Users/1/Desktop/algorithm-tasks/num-of-solutions/build/CMakeFiles/generate.stamp.depend'
+    result='-1'
+  CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+    Compatibility with CMake < 3.10 will be removed from a future version of
+    CMake.
+  
+    Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+    to tell CMake that the project requires at least <min> but has been updated
+    to work with policies introduced by <max> or earlier.
+  
+  
+  -- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.19045.
+  -- Configuring done (0.0s)
+  -- Generating done (0.1s)
+  -- Build files have been written to: C:/Users/1/Desktop/algorithm-tasks/num-of-solutions/build

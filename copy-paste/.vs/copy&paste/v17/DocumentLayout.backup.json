@@ -1,0 +1,49 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\1\\Desktop\\algorithm-tasks\\copy-paste\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F64D970E-9554-4718-BC53-8520765D06CE}|copy\u0026paste.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\copy-paste\\copypaste.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F64D970E-9554-4718-BC53-8520765D06CE}|copy\u0026paste.vcxproj|solutionrelative:copypaste.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "copypaste.cpp",
+              "DocumentMoniker": "C:\\Users\\1\\Desktop\\algorithm-tasks\\copy-paste\\copypaste.cpp",
+              "RelativeDocumentMoniker": "copypaste.cpp",
+              "ToolTip": "C:\\Users\\1\\Desktop\\algorithm-tasks\\copy-paste\\copypaste.cpp*",
+              "RelativeToolTip": "copypaste.cpp*",
+              "ViewState": "AgIAADYAAAAAAAAAAAAswFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-22T16:29:44.994Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

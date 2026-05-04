@@ -1,0 +1,8 @@
+﻿  crossings.cpp
+  merge_second.cpp
+  merge_second.h
+  merge_first.cpp
+  vector.cpp
+  Generating Code...
+crossings\x64\Debug\merge_second.obj : warning LNK4042: object specified more than once; extras ignored
+  crossings.vcxproj -> C:\Users\1\Desktop\algorithm-tasks\crossings\x64\Debug\crossings.exe

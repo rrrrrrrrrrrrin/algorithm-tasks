@@ -1,0 +1,10 @@
+^C:\USERS\1\DESKTOP\ALGORITHM-TASKS\NUM-OF-SOLUTIONS\BUILD\CMAKEFILES\5B958C74020EB0E7B4329E8C635153AE\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/1/Desktop/algorithm-tasks/num-of-solutions -BC:/Users/1/Desktop/algorithm-tasks/num-of-solutions/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/1/Desktop/algorithm-tasks/num-of-solutions/build/numofsolutions.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

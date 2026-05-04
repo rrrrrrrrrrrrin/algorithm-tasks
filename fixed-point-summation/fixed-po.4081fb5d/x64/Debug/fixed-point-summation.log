@@ -1,0 +1,18 @@
+﻿  fixed.cpp
+  simplesum.cpp
+C:\Users\1\Desktop\algorithm-tasks\fixed-point-summation\fixed.h(176,31): warning C4244: 'argument': conversion from 'unsigned __int64' to 'int', possible loss of data
+  (compiling source file 'simplesum.cpp')
+      C:\Users\1\Desktop\algorithm-tasks\fixed-point-summation\fixed.h(176,31):
+      the template instantiation context (the oldest one first) is
+          C:\Users\1\Desktop\algorithm-tasks\fixed-point-summation\simplesum.cpp(11,13):
+          see reference to class template instantiation 'Fixed<15>' being compiled
+          C:\Users\1\Desktop\algorithm-tasks\fixed-point-summation\fixed.h(120,3):
+          while compiling class template member function 'Fixed<15>::Fixed(const char [])'
+              C:\Users\1\Desktop\algorithm-tasks\fixed-point-summation\simplesum.cpp(38,22):
+              see the first reference to 'Fixed<15>::Fixed' in 'main'
+  
+C:\Users\1\Desktop\algorithm-tasks\fixed-point-summation\fixed.h(178,31): warning C4244: 'argument': conversion from 'unsigned __int64' to 'int', possible loss of data
+  (compiling source file 'simplesum.cpp')
+  
+  Generating Code...
+  fixed-point-summation.vcxproj -> C:\Users\1\Desktop\algorithm-tasks\fixed-point-summation\x64\Debug\fixed-point-summation.exe
