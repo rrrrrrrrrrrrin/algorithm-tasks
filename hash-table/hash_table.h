@@ -17,7 +17,7 @@ class HashTable {
   Vector<Node*> vec;
 
   // -10^9 < key < 10^9 (key < |10^9|)
-  int get_hash(int key) {
+  int get_hash(int key) const {
     return ((key % size_) + size_) %
            size_;  // to find remainder of negative key
   }
@@ -28,6 +28,18 @@ class HashTable {
   void insert(int key);
   void remove(int key);
   bool keyIsInSet(int key);
+
+  ~HashTable() {
+    for (int i = 0; i < size_; i++) {
+      Node* current = vec[i];
+      while (current != nullptr) {
+        Node* next = current;
+        current = current->next;
+        delete next;
+      }
+      vec[i] = nullptr;
+    }
+  }
 };
 
 #endif
