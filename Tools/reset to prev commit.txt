@@ -1,0 +1,4 @@
+git reset —hard "commit to reset to"
+git push —force
+
+it will delete all commits after the needed one
