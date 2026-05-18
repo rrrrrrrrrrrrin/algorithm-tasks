@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\1\\Desktop\\algorithm-tasks\\median\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FBC21060-DC2B-455D-94DE-C289126283B0}|median.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\median\\median.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FBC21060-DC2B-455D-94DE-C289126283B0}|median.vcxproj|solutionrelative:median.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +27,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "median.cpp",
+              "DocumentMoniker": "C:\\Users\\1\\Desktop\\algorithm-tasks\\median\\median.cpp",
+              "RelativeDocumentMoniker": "median.cpp",
+              "ToolTip": "C:\\Users\\1\\Desktop\\algorithm-tasks\\median\\median.cpp",
+              "RelativeToolTip": "median.cpp",
+              "ViewState": "AgIAACEAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-18T09:51:55.346Z",
+              "EditorCaption": ""
             }
           ]
         }

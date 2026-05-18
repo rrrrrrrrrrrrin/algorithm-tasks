@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3706D035-9024-4C18-984C-C36F617CE0D9}|isbtree.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\isbtree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3706D035-9024-4C18-984C-C36F617CE0D9}|isbtree.vcxproj|solutionrelative:isbtree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3706D035-9024-4C18-984C-C36F617CE0D9}|isbtree.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\vector.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3706D035-9024-4C18-984C-C36F617CE0D9}|isbtree.vcxproj|solutionrelative:vector.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3706D035-9024-4C18-984C-C36F617CE0D9}|isbtree.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\vector.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3706D035-9024-4C18-984C-C36F617CE0D9}|isbtree.vcxproj|solutionrelative:vector.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3706D035-9024-4C18-984C-C36F617CE0D9}|isbtree.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\isbtree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3706D035-9024-4C18-984C-C36F617CE0D9}|isbtree.vcxproj|solutionrelative:isbtree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,20 +38,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "vector.h",
               "DocumentMoniker": "C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\vector.h",
               "RelativeDocumentMoniker": "vector.h",
               "ToolTip": "C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\vector.h",
               "RelativeToolTip": "vector.h",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAIwFsAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAIwFsAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-05-04T10:53:53.724Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T10:53:53.724Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "vector.cpp",
               "DocumentMoniker": "C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\vector.cpp",
               "RelativeDocumentMoniker": "vector.cpp",
@@ -59,18 +58,17 @@
               "RelativeToolTip": "vector.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-04T10:53:51.562Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T10:53:51.562Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "isbtree.cpp",
               "DocumentMoniker": "C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\isbtree.cpp",
               "RelativeDocumentMoniker": "isbtree.cpp",
               "ToolTip": "C:\\Users\\1\\Desktop\\algorithm-tasks\\isbtree\\isbtree.cpp",
               "RelativeToolTip": "isbtree.cpp",
-              "ViewState": "AgIAABEAAAAAAAAAAAArwDwAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAALEAAAAAAAAAAAAAADwAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-28T09:53:28.91Z",
               "EditorCaption": ""

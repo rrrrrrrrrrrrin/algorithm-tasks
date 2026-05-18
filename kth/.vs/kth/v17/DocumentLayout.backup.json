@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D1953613-7C15-47C3-8BA6-2DF9D35DA24D}|kth.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\kth.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D1953613-7C15-47C3-8BA6-2DF9D35DA24D}|kth.vcxproj|solutionrelative:kth.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D1953613-7C15-47C3-8BA6-2DF9D35DA24D}|kth.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\heap.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D1953613-7C15-47C3-8BA6-2DF9D35DA24D}|kth.vcxproj|solutionrelative:heap.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D1953613-7C15-47C3-8BA6-2DF9D35DA24D}|kth.vcxproj|C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\kth.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D1953613-7C15-47C3-8BA6-2DF9D35DA24D}|kth.vcxproj|solutionrelative:kth.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,26 +34,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "heap.h",
               "DocumentMoniker": "C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\heap.h",
               "RelativeDocumentMoniker": "heap.h",
               "ToolTip": "C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\heap.h",
               "RelativeToolTip": "heap.h",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAcwCkAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-04-18T16:33:07.718Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "kth.cpp",
               "DocumentMoniker": "C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\kth.cpp",
               "RelativeDocumentMoniker": "kth.cpp",
-              "ToolTip": "C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\kth.cpp*",
-              "RelativeToolTip": "kth.cpp*",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAEcAAAAfAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\1\\Desktop\\algorithm-tasks\\kth\\kth.cpp",
+              "RelativeToolTip": "kth.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-18T16:05:47.969Z",
               "EditorCaption": ""
