@@ -7,8 +7,7 @@
 const int MAX_LEN = 1024;
 const int ALPHABET_ASCII = 256;
 
-// ============================ Boyer-Moore (Bm) string-search algorithm
-// ============================
+// Boyer-Moore (Bm) string-search algorithm
 
 // Функция для вычисления таблицы сдвигов плохих символов
 //
@@ -30,33 +29,6 @@ static void preBmBc(const char* substr, int len, int bmBc[ALPHABET_ASCII]) {
   }
 }
 
-// Функция, проверяющая что подстрока substr[p...len-1]
-// является префиксом шаблона substr
-static bool isPrefix(const char* substr, int p, int len) {
-  int j = 0;
-  for (int i = p; i < len; ++i) {
-    if (substr[i] != substr[j]) {
-      return false;
-    }
-    ++j;
-  }
-  return true;
-}
-
-// Функция находит длину макс. суффикса,
-// который заканчивается в позиции p
-static int suffixLength(const char* substr, int p, int len_substr) {
-  int len = 0;
-  int i = p;
-  int j = len_substr - 1;
-  while (i >= 0 && substr[i] == substr[j]) {
-    ++len;
-    --i;
-    --j;
-  }
-  return len;
-}
-
 // Таблица хороших суффиксов
 //
 // Если часть шаблона справа совпала,
@@ -66,26 +38,80 @@ static int suffixLength(const char* substr, int p, int len_substr) {
 // или
 // совпавший суффикс встретился ещё раз внутри шаблона
 //
-// Индекс bmGs[i] это длина хорошего суффикса
+// Индекс bmGs[i] это смещение (на сколько символов сдвинуть шаблон),
+// которое нужно сделать, если несовпадение произошло в позиции j (считая с
+// конца шаблона) i это длина суффикса, который мы уже успешно сопоставили в
+// тексте перед тем, как произошло несовпадение
 //
 // Gs is good suffixes
+//
+// Gusfield algorithm
 static void preBmGs(const char* substr, int len, int bmGs[MAX_LEN + 1]) {
-  int lastPrefixPosition = len;
+  // Длина наибольшего общего суффикса подстроки, заканчивающейся в позиции i;
+  // и длина всего шаблона; в suff
+  int suff[MAX_LEN + 1];
 
-  // Ищет случаи, когда суффикс шаблона является его префиксом
-  for (int i = len - 1; i >= 0; --i) {
-    // Если substr[i+1...len-1] является префиксом, то запомним её начало
-    if (isPrefix(substr, i + 1, len)) {
-      lastPrefixPosition = i + 1;
+  suff[len - 1] = len;
+  int g = len - 1;
+  int f = len - 1;
+
+  // Проходим по шаблону справа налево
+  for (int i = len - 2; i >= 0; --i) {
+    // Проверка по памяти
+    // Если текущий индекс i находится внутри уже найденного отрезка [g, f],
+    // мы можем использовать уже вычисленные значения в suff для оптимизации
+    //
+    // i + len - 1 - f это соответствующая позиция в уже обработанной части
+    if (i > g && suff[i + len - 1 - f] < i - g) {
+      suff[i] = suff[i + len - 1 - f];  // Просто копируем результат
+    } else {
+      // Пересчет g и f для нового отрезка [g, i]
+      //
+      // Если мы вышли за границы окна или предыдущие данные не подходят,
+      // начинаем расширять границы окна от текущей позиции
+      if (i < g) {
+        g = i;  // Сдвигаем левую границу окна
+      }
+
+      f = i;  // Устанавливаем новую правую границу окна на текущем индексе
+
+      // Сравниваем символы шаблона, двигаясь влево от текущей границы f,
+      // пока символы совпадают или мы не дошли до начала шаблона
+      while (g >= 0 && substr[g] == substr[g + len - 1 - f]) {
+        --g;
+      }
+
+      // Записываем длину совпавшего суффикса f - g
+      suff[i] = f - g;
     }
-    bmGs[len - 1 - i] = lastPrefixPosition - i + len - 1;
   }
 
-  // Для каждого возможного суффикса ищет, где ещё он встречается в шаблоне,
-  // и записывает нужный сдвиг
-  for (int i = 0; i < len - 1; ++i) {
-    int slen = suffixLength(substr, i, len);
-    bmGs[slen] = len - 1 - i + slen;
+  // Заполнение базовыми сдвигами
+  for (int i = 0; i < len; ++i) {
+    bmGs[i] = len;
+  }
+
+  // Обработка случая, когда суффикс является префиксом шаблона
+  //
+  // Если суффикс шаблона совпадает с его префиксом, то при несовпадении
+  // можно сдвинуть шаблон так, чтобы этот суффикс совпал с префиксом
+  for (int i = len - 1; i >= 0; --i) {
+    if (suff[i] == i + 1) {
+      for (int j = 0; j < len - 1 - i; ++j) {
+        if (bmGs[j] == len) {
+          bmGs[j] = len - 1 - i;
+        }
+      }
+    }
+  }
+
+  // Обработка случая, когда суффикс встречается внутри шаблона
+  //
+  // Если суффикс шаблона встречается внутри шаблона, то при несовпадении
+  // можно сдвинуть шаблон так, чтобы этот суффикс совпал с
+  // другой копией того же суффикса, найденной ранее
+  for (int i = 0; i <= len - 2; ++i) {
+    bmGs[len - 1 - suff[i]] = len - 1 - i;
   }
 }
 
@@ -128,7 +154,7 @@ static int bmCountInLine(const char* line, int len, const char* substr,
       i += bmGs[0];
     } else {  // было несовпадение
       // Делаем макс. сдвиг
-      int shift1 = bmGs[len_substr - 1 - j];  // сдвиг по хорошему суффиксу
+      int shift1 = bmGs[j];  // сдвиг по хорошему суффиксу
 
       int shift2 = bmBc[(unsigned char)line[i + j]] -
                    (len_substr - 1 - j);  // сдвиг по плохому символу
@@ -171,9 +197,26 @@ int main(int argc, char* argv[]) {
   char line[MAX_LEN + 1];
   int cnt = 0;
 
-  // Читаем строку целиком
-  while (input.getline(line, MAX_LEN + 1)) {
+  while (true) {
+    input.getline(line, MAX_LEN + 1);
+
+    if (input.eof() && input.gcount() == 0) {
+      break;
+    }
+
+    if (input.fail()) {
+      input.clear();
+    }
+
     int len = static_cast<int>(std::strlen(line));
+
+    // If file uses Windows line endings (\r\n), getline only removes \n
+    // Delete \r
+    if (len > 0 && line[len - 1] == '\r') {
+      line[len - 1] = '\0';
+      len--;
+    }
+
     cnt += bmCountInLine(line, len, substr, len_substr, bmBc, bmGs);
   }
 
